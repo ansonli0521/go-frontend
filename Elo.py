@@ -28,10 +28,10 @@ def get_data():
 def run():
     st.set_page_config(
         page_title="Elo",
-        page_icon="📈",
+        page_icon="🏆",
     )
 
-    st.write("# Elo 📈")
+    st.write("# Elo 🏆")
 
     try:
         data = get_data()

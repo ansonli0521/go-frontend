@@ -1,5 +1,5 @@
-altair
+altair<5
 numpy
 pandas
 pydeck
-streamlit
+streamlit==1.27.0

@@ -43,7 +43,7 @@ def game_history():
 
 
 st.set_page_config(page_title="Game History", page_icon="⏳")
-st.markdown("# Game History")
+st.markdown("# Game History ⏳")
 st.sidebar.header("Game History")
 
 game_history()
