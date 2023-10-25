@@ -51,12 +51,38 @@ def elo_change_history():
                 .mark_line()
                 .encode(
                     x="Date",
-                    y="New Elo",
+                    y="Elo",
                     color="Player",
                 )
             )
 
-            st.altair_chart(lines.interactive(), use_container_width=True)
+            hover = alt.selection_single(
+                fields=["Date"],
+                nearest=True,
+                on="mouseover",
+                empty="none",
+            )
+
+            points = lines.transform_filter(hover).mark_circle(size=65)
+
+            # Draw a rule at the location of the selection
+            tooltips = (
+                alt.Chart(data)
+                .mark_rule()
+                .encode(
+                    x="Date",
+                    y="Elo",
+                    opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
+                    tooltip=[
+                        alt.Tooltip("Date", title="Date"),
+                        alt.Tooltip("Player", title="Player"),
+                        alt.Tooltip("Elo", title="Elo"),
+                    ],
+                )
+                .add_selection(hover)
+            )
+
+            st.altair_chart((lines+points+tooltips).interactive(), use_container_width=True)
     except URLError as e:
         st.error(
             """
