@@ -80,9 +80,13 @@ def elo_change_history():
                     ],
                 )
                 .add_selection(hover)
-            )
+            ).properties(height=800)
 
             st.altair_chart((lines+points+tooltips).interactive(), use_container_width=True)
+
+            st.markdown('<style>#vg-tooltip-element{z-index: 1000051}</style>',
+             unsafe_allow_html=True)
+
     except URLError as e:
         st.error(
             """
