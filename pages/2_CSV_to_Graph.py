@@ -18,6 +18,7 @@ import altair as alt
 import pandas as pd
 
 import streamlit as st
+from datetime import datetime
 
 
 def elo_change_history():
@@ -31,10 +32,17 @@ def elo_change_history():
             players = st.multiselect(
                 "Choose Players", list(player_df.index), list(player_df.index)
             )
+            date_range = st.slider(
+                "Date Range:",
+                min_value=datetime.strptime(df.iloc[df.Date.idxmin(), 0], "%Y-%m-%d").date(),
+                max_value=datetime.strptime(df.iloc[df.Date.idxmax(), 0], "%Y-%m-%d").date(),
+                value=(datetime.strptime(df.iloc[df.Date.idxmin(), 0], "%Y-%m-%d").date(), datetime.strptime(df.iloc[df.Date.idxmax(), 0], "%Y-%m-%d").date())
+            )
             if not players:
                 st.error("Please select at least one player.")
             else:
-                data = df[df.Player.isin(players)]
+                df = df[df.Player.isin(players)]
+                data = df[df.Date.between(str(date_range[0]), str(date_range[1]))]
 
                 lines = (
                     alt.Chart(data, title="Elo Change of Players")
