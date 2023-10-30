@@ -32,6 +32,13 @@ def game_history():
         data = get_data()
         data.index = data.index + 1
         st.write(data)
+        hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+        """
+        st.markdown(hide_streamlit_style, unsafe_allow_html=True)
     except URLError as e:
         st.error(
             """

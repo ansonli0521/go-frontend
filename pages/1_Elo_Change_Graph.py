@@ -94,7 +94,13 @@ def elo_change_history():
 
             st.markdown('<style>#vg-tooltip-element{z-index: 1000051}</style>',
              unsafe_allow_html=True)
-
+        hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+        """
+        st.markdown(hide_streamlit_style, unsafe_allow_html=True)
     except URLError as e:
         st.error(
             """
